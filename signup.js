@@ -1,39 +1,36 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const emailInput = document.querySelector("input[name='email']");
-  const phoneInput = document.querySelector("input[name='phone']");
+  const auth = firebase.auth();
+  const db = firebase.firestore();
 
-  emailInput.addEventListener("blur", () => {
-    simulateCheck("email", emailInput.value, "#emailError");
+  const form = document.getElementById("signup-form");
+  const message = document.getElementById("message");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const password = document.getElementById("password").value;
+
+    try {
+      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+      const uid = userCredential.user.uid;
+
+      await db.collection("users").doc(uid).set({
+        name,
+        email,
+        phone,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      message.textContent = "Signup successful!";
+      message.style.color = "green";
+      form.reset();
+    } catch (error) {
+      console.error("Signup error:", error);
+      message.textContent = error.message;
+      message.style.color = "red";
+    }
   });
-
-  phoneInput.addEventListener("blur", () => {
-    simulateCheck("phone", phoneInput.value, "#phoneError");
-  });
-
-  function simulateCheck(field, value, errorSelector) {
-    // Simulated duplicate check logic
-    const msg = value.toLowerCase().includes("test")
-      ? `${field.charAt(0).toUpperCase() + field.slice(1)} already exists.`
-      : "";
-    document.querySelector(errorSelector).textContent = msg;
-  }
 });
-
-// Optional: handle form submission if PHP is disabled
-function handleSignup(event) {
-  event.preventDefault();
-
-  // You can collect form data here
-  const formData = new FormData(document.getElementById("signupForm"));
-  const user = {
-    fullname: formData.get("fullname"),
-    username: formData.get("username"),
-    email: formData.get("email"),
-    phone: formData.get("phone"),
-    password: formData.get("password"),
-    confirm_password: formData.get("confirm_password")
-  };
-
-  // Placeholder action
-  alert(`Signup submitted for ${user.fullname}. Backend integration coming soon.`);
-}
