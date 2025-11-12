@@ -1,9 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-
   const form = document.getElementById("signup-form");
   const message = document.getElementById("message");
+
+  if (!form) {
+    console.error("Form element not found!");
+    return;
+  }
+
+  const auth = firebase.auth();
+  const db = firebase.firestore();
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
