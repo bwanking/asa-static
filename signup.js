@@ -1,44 +1,19 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("signup-form");
-  const message = document.getElementById("message");
+// firebase-config.js
 
-  if (!form) {
-    console.error("Form element not found!");
-    return;
-  }
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyBRmzT3K-zeia4CMNNStbUiWZgzAPc30FU",
+  authDomain: "asa-db-994cf.firebaseapp.com",
+  projectId: "asa-db-994cf",
+  storageBucket: "asa-db-994cf.appspot.com",
+  messagingSenderId: "298756488035",
+  appId: "1:298756488035:web:8090bc025f245e355d3156"
+};
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+firebase.initializeApp(firebaseConfig);
 
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const password = document.getElementById("password").value;
+// Firebase services
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-    console.log("Form submitted with:", { name, email, phone });
-
-    try {
-      // Create Firebase Auth user
-      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-      const uid = userCredential.user.uid;
-      console.log("Auth user created:", uid);
-
-      // Save user data in Firestore
-      await db.collection("users").doc(uid).set({
-        name,
-        email,
-        phone,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-      console.log("User data saved to Firestore successfully");
-
-      message.textContent = "Signup successful!";
-      message.style.color = "green";
-      form.reset();
-    } catch (error) {
-      console.error("Signup error:", error);
-      message.textContent = error.message;
-      message.style.color = "red";
-    }
-  });
-});
+console.log("Firebase initialized:", firebase.app().name);
