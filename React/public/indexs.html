@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASA — African Social Media App</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fdfdfd;
+      color: #222;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: linear-gradient(to right, #006400, #FFD700, #8B0000);
+    }
+    .logo img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .header-text {
+      font-size: 1rem;
+      font-weight: bold;
+      color: white;
+    }
+    .language-select {
+      padding: 0.4rem;
+      border-radius: 5px;
+      border: none;
+      font-weight: bold;
+    }
+    .main {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    .main h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .main p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .cta {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .cta a {
+      background: #FFD700;
+      color: #000;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 6px;
+      transition: background 0.3s;
+      min-width: 150px;
+      text-align: center;
+    }
+    .cta a:hover {
+      background: #e6c200;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+       <img src="asa-logo.png" alt="ASA Logo" />
+    </div>
+    <div class="header-right">
+      <div class="header-text" id="headerText">Free Ourselves from Mental Slavery</div>
+      <select class="language-select" onchange="translatePage(this.value)">
+        <option value="en">English</option>
+        <option value="sw">Swahili</option>
+        <option value="fr">French</option>
+      </select>
+    </div>
+  </header>
+
+  <div class="main">
+    <h1>ASA — African Social Media App</h1>
+    <p id="missionText">Free Ourselves from Mental Slavery</p>
+    <div class="cta">
+      <a href="signup.html" id="joinBtn">Join the Movement</a>
+      <a href="public/login/login.html" id="signInBtn">Sign In</a>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 ASA Africa. All rights reserved.
+   <p>Tel +256755317357</p>
+<!-- Trigger rebuild -->
+
+  </footer>
+
+  <script>
+    function translatePage(lang) {
+      const translations = {
+        en: {
+          header: "Free Ourselves from Mental Slavery",
+          mission: "Free Ourselves from Mental Slavery",
+          join: "Join the Movement",
+          signIn: "Sign In"
+        },
+        sw: {
+          header: "Tujikomboe kutoka kwa utumwa wa kiakili",
+          mission: "Tujikomboe kutoka kwa utumwa wa kiakili",
+          join: "Jiunge na Harakati",
+          signIn: "Ingia"
+        },
+        fr: {
+          header: "Libérons-nous de l'esclavage mental",
+          mission: "Libérons-nous de l'esclavage mental",
+          join: "Rejoindre le Mouvement",
+          signIn: "Se Connecter"
+        }
+      };
+
+      document.getElementById("headerText").textContent = translations[lang].header;
+      document.getElementById("missionText").textContent = translations[lang].mission;
+      document.getElementById("joinBtn").textContent = translations[lang].join;
+      document.getElementById("signInBtn").textContent = translations[lang].signIn;
+    }
+  </script>
+
+</body>
+</html>
+
+
